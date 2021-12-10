@@ -1,0 +1,87 @@
+/*
+ * menus.h
+ *
+ *  Created on: Nov 15, 2021
+ *      Author: fil
+ */
+
+#ifndef SRC_BB2XX_BSP_HMI_MENUS_H_
+#define SRC_BB2XX_BSP_HMI_MENUS_H_
+
+#define	MENU_FONT_HEIGHT		18
+#define	MENU_LINE_MAX_LEN		32
+#define	MENU_LINE_0_X			1
+#define	MENU_LINE_0_Y			32
+#define	MENU_NORMAL_COLOR		1
+#define	MENU_HILIGHT_COLOR		0
+#define	MENU_INACTIVE_COLOR		ILI9341_WHITE
+#define	MENU_ACTIVE_COLOR		ILI9341_CYAN
+#define	MENU_DELETE_COLOR		ILI9341_BLACK
+#define	MENU_MAXLINENUM			12
+
+#define	LCD_RESOLUTION_X		ILI9341_WIDTH
+#define	LCD_RESOLUTION_Y		ILI9341_HEIGHT
+
+#define	DIGIT_SPACE				DIGITS_H+2
+#define	DIGIT_HSPACE			2
+#define	DIGIT_VSPACE			2
+#define	STATUS_BAR_HEIGHT		16
+#define	STATUS_BAR_X			0
+#define	STATUS_BAR_Y			(ILI9341_HEIGHT-STATUS_BAR_HEIGHT)
+
+#define	BPM_DIGIT_XPOSH			(ILI9341_WIDTH-3*DIGITS_W-3*DIGIT_HSPACE)
+#define	BPM_DIGIT_XPOST			(ILI9341_WIDTH-2*DIGITS_W-2*DIGIT_HSPACE)
+#define	BPM_DIGIT_XPOSU			(ILI9341_WIDTH-1*DIGITS_W-1*DIGIT_HSPACE)
+#define	BPM_DIGIT_YPOS			(LCD_RESOLUTION_Y-4*DIGITS_H-4*DIGIT_VSPACE-STATUS_BAR_HEIGHT)
+
+#define	BPM_TEXT_X				0
+#define	BPM_TEXT_Y				(BPM_DIGIT_YPOS - 40)
+
+#define	DLY_DIGIT_XPOSH			BPM_DIGIT_XPOSH
+#define	DLY_DIGIT_XPOST			BPM_DIGIT_XPOST
+#define	DLY_DIGIT_XPOSU			BPM_DIGIT_XPOSU
+#define	DLY_DIGIT_YPOS			(LCD_RESOLUTION_Y-3*DIGITS_H-3*DIGIT_VSPACE-STATUS_BAR_HEIGHT)
+
+#define	DLY_TITLE_TEXT_X		0
+#define	DLY_TITLE_TEXT_Y		(DLY_DIGIT_YPOS - 40)
+
+#define	DLY_TEXT_X				(DLY_DIGIT_XPOSU - 36 )
+#define	DLY_TEXT_Y				(DLY_DIGIT_YPOS - 20)
+
+#define	DLYW_DIGIT_XPOST		BPM_DIGIT_XPOST
+#define	DLYW_DIGIT_XPOSU		BPM_DIGIT_XPOSU
+#define	DLYW_DIGIT_YPOS			(LCD_RESOLUTION_Y-2*DIGITS_H-2*DIGIT_VSPACE-STATUS_BAR_HEIGHT)
+
+#define	DLYW_TEXT_X				0
+#define	DLYW_TEXT_Y				(DLYW_DIGIT_YPOS - 20)
+
+#define	DESCRIPTOR_AREA_X		0
+#define	DESCRIPTOR_AREA_Y		DLY_DIGIT_YPOS+DIGIT_Y
+
+typedef struct {
+	uint8_t			linex,liney;
+	uint8_t			text[MENU_LINE_MAX_LEN];
+	uint16_t		color;
+	uint8_t			items;
+	uint8_t			state_next_index;
+}Menu_TypeDef;
+
+typedef struct {
+	uint8_t			menu_state;
+	uint8_t			next_menu_item;
+	uint8_t			selected_menu_item;
+	Menu_TypeDef 	*current_menu;
+}MenuVars_TypeDef;
+
+
+/* states */
+typedef enum
+{
+	  MENU_TOP,
+	  MENU_SAMPLES,
+	  MENU_SEQUENCE,
+	  MENU_DELAY,
+	  MENU_SETTINGS
+}MenuState_Typdef;
+
+#endif /* SRC_BB2XX_BSP_HMI_MENUS_H_ */
